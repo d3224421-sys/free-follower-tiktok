@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YOU ARE AN IDIOT</title>
+<style>
+body{margin:0;background:#fff;height:100vh;overflow:hidden;font-family:'Courier New',monospace;}
+@keyframes shake{0%{transform:translate(0,0);}25%{transform:translate(-3px,3px);}50%{transform:translate(3px,-3px);}75%{transform:translate(-2px,-2px);}100%{transform:translate(2px,2px);}}
+.popup{position:fixed;border:2px solid #000;padding:10px 14px;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.25);width:240px;font-size:12px;z-index:9999;animation:shake 0.3s infinite;}
+.popup1{background:#f9f9f9;}
+.popup2{background:#ffffff;}
+.popup3{background:#fafafa;border-width:3px;}
+.popup4{background:#fff;border:3px double #000;}
+.close{position:absolute;top:4px;right:10px;cursor:pointer;font-weight:bold;font-size:18px;color:#000;}
+.close:hover{transform:scale(1.2);}
+.title{font-size:14px;font-weight:bold;margin-bottom:6px;letter-spacing:1px;text-transform:uppercase;color:#000;}
+.msg{font-size:11px;line-height:1.5;color:#333;}
+.center-text{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:64px;color:#000;font-weight:bold;z-index:5;letter-spacing:6px;pointer-events:none;opacity:0.08;}
+.webcam{position:fixed;top:15px;left:15px;width:220px;height:165px;background:#000;border:3px solid #000;box-shadow:0 4px 15px rgba(0,0,0,0.3);z-index:99999;overflow:hidden;}
+.webcam::before{content:"LIVE";position:absolute;top:8px;right:8px;background:#ff0000;color:#fff;padding:2px 8px;font-size:9px;font-weight:bold;letter-spacing:1px;z-index:2;}
+.webcam::after{content:"●";position:absolute;top:10px;right:50px;color:#ff0000;font-size:14px;animation:blink 1s infinite;z-index:2;}
+@keyframes blink{0%{opacity:1;}50%{opacity:0;}100%{opacity:1;}}
+.cam-noise{position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.05) 2px,rgba(255,255,255,.05) 4px);animation:noise 0.3s infinite;z-index:1;}
+@keyframes noise{0%{transform:translateY(0);}100%{transform:translateY(4px);}}
+.cam-label{position:absolute;bottom:6px;left:8px;color:#fff;font-size:9px;z-index:2;text-shadow:1px 1px 2px #000;}
+</style>
+</head>
+<body>
+<div class="center-text">HACKED</div>
+<div class="webcam">
+<div class="cam-noise"></div>
+<div class="cam-label">Front Camera Active</div>
+</div>
+<script>
+const msgs=[
+["YOU ARE AN IDIOT!","Your files are being deleted...","Hacked By ZMalik & Hack7rbgg"],
+["SYSTEM ERROR","Critical failure detected","All your data belongs to us"],
+["WARNING!","Virus detected on your device","Cannot be stopped hahahaha"],
+["ACCESS DENIED","Your system has been compromised","There is no escape"],
+["FATAL ERROR","System32 is corrupting...","Say goodbye to everything"],
+["GAME OVER","You clicked the wrong link","Now suffer the consequences"],
+["INFECTED","Malware spreading rapidly","Disconnecting won't help you"],
+["NO ESCAPE","We are inside your machine","Watching everything you do"]
+];
+function makePopup(){
+const p=document.createElement("div");
+const type=Math.floor(Math.random()*4)+1;
+p.className="popup popup"+type;
+let maxX=window.innerWidth-260;
+let maxY=window.innerHeight-120;
+if(maxX<0)maxX=0;
+if(maxY<0)maxY=0;
+let x,y;
+let attempts=0;
+do{
+x=Math.random()*maxX;
+y=Math.random()*maxY;
+attempts++;
+}while((x<280&&y<200)&&attempts<15);
+p.style.left=x+"px";
+p.style.top=y+"px";
+const m=msgs[Math.floor(Math.random()*msgs.length)];
+p.innerHTML='<div class="close">×</div><div class="title">'+m[0]+'</div><div class="msg">'+m[1]+'<br>'+m[2]+'</div>';
+document.body.appendChild(p);
+p.querySelector(".close").onclick=function(){
+p.style.animation="shake 0.1s infinite";
+setTimeout(()=>p.remove(),300);
+};
+setTimeout(()=>{if(p.parentNode)p.remove();},4500);
+}
+setInterval(makePopup,350);
+setTimeout(()=>{
+setInterval(makePopup,280);
+},6000);
+document.addEventListener("click",function(e){
+for(let i=0;i<3;i++){
+setTimeout(makePopup,i*120);
+}
+});
+</script>
+</body>
+</html>
